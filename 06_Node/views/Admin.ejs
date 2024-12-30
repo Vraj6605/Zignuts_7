@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <%- include("./partials/head") %>
+    <title>Admin</title>
+    <style>
+      .ellipsis-text {
+        width: 100%;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        height: 50px;
+      }
+    </style>
+</head>
+
+<body style="background-color: cadetblue;">
+  <div style="display: flex; justify-content:space-between;">
+    <div style="position:fixed; top: 0; background-color: aqua;">
+      <%- include("./partials/sidebar") %>
+    </div>
+    <div>
+      <div class="container d-flex flex-wrap mt-4" style="justify-content: center;  width: 1200px; margin-left: 300px;">
+
+        <% if (!locals.allBlog && !locals.allUser && !locals.blog && !locals.ManageBlog && !locals.AddBlog) { %>
+          <h1
+            style="color: rgb(0, 0, 0); margin-bottom: 50px; width: 100%; font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">
+
+
+            <% let time=new Date(); let hour=time.getHours(); if (hour < 12) { %>
+              <span style="color: white;">Good Morning</span> Admin,<br> Vraj Makwana
+              <% } else if(hour >= 12 && hour <= 18){ %>
+                  <span style="color: white;">Good Afternoon</span> Admin, <br>Vraj Makwana
+                  <% } else if(hour> 18 && hour <= 24){ %>
+                      <span style="color: white;">Good Evening</span> Admin, <br> Vraj Makwana
+                      <% } %>
+          </h1>
+          <img style="border-radius: 50%;margin-bottom: 20px;"
+            src="https://avatars.githubusercontent.com/u/155839419?v=4">
+         
+
+          <!-- <img src="../admin.jpg" alt="no Image"> -->
+          <% } %>
+
+
+            <!-- All Blogs -->
+            <% if (locals.allBlog) { %>
+              <%- include("./partials/Admin_AllBlog") %>
+                <% } %>
+                  <!-- All Users -->
+                  <% if (locals.allUser) { %>
+                    <%- include("./partials/Admin_AllUser") %>
+                      <% } %>
+                        <!-- Individual Blog  -->
+                        <% if (locals.blog) { %>
+                          <%- include("./partials/Admin_InBlog") %>
+                            <% } %>
+                              <!-- Manage Blog -->
+                              <% if (locals.ManageBlog) { %>
+                                <%- include("./partials/Admin_ManageBlog") %>
+                                  <% } %>
+                                    <!-- Add Blog -->
+                                    <% if (locals.AddBlog) { %>
+                                      <%- include("./partials/Admin_AddBlog") %>
+                                        <% } %>
+
+      </div>
+    </div>
+  </div>
+  <%- include("./partials/scripts") %>
+</body>
+
+</html>

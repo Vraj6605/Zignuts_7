@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Url Info</title>
+</head>
+
+<body>
+  <div style="width: 60%; margin: auto; text-align: center; margin-bottom: 50px;">
+    <h1 style="font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;">Url Information</h1>
+    <h1>Total Url : <%= data.length %>
+    </h1>
+
+    <form action="/url" method="post">
+      <input type="text" name="url" placeholder="Enter your url here..." style="width: 50%; font-size: 25px;">
+      <input type="submit" style="font-size: 25px;">
+    </form>
+  </div>
+
+
+  <table border="1" style="border-collapse: collapse; width: 60%;text-align: center;margin: auto; font-size: 20px;">
+    <tr>
+      <th>Short Url</th>
+      <th>Original Url</th>
+      <th>Count(visited)</th>
+    </tr>
+    <% data.forEach(element=> { %>
+      <tr style="padding: 10px;">
+        <td>
+          <%= element.shortUrl %>
+        </td>
+        <td>
+          <%= element.originalUrl %>
+        </td>
+        <td>
+          <%= element.visitHistory.length %>
+        </td>
+      </tr>
+      <% }); %>
+  </table>
+
+  <!-- <ul>
+    <% data.forEach(element => { %>
+      <li><%= element.shortUrl %> : <%= element.originalUrl %> : <%= element.visitHistory.length %></li>
+    <% }); %>
+  </ul> -->
+</body>
+
+</html>

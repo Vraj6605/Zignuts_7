@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <%- include("./partials/head") %>
+    <title>blogify AllBlogs</title>
+    <style>
+      .ellipsis-text {
+        width: 100%;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        height: 50px;
+      }
+    </style>
+</head>
+
+<body>
+  <%- include("./partials/nav") %>
+    <div class="container d-flex flex-wrap mt-4">
+
+      <% if (locals.allBlog) { %>
+        <% allBlog.forEach(element=> { %>
+          <div class="card m-3" style="width: 18rem;">
+            <img
+              style="width: 80%; height: 150px; background-color: white; object-fit:contain; margin: auto; margin-top: 10px; "
+              src=<%=element.coverImageURL %> class="card-img-top" />
+            <div class="card-body">
+              <h5 class="card-title">
+                <%= element.title %>
+              </h5>
+              <div class="ellipsis-text">
+                <%= element.body %>
+              </div>
+              <a href="/blog/<%= element._id %>" class="btn btn-primary">Read Blog</a>
+
+            </div>
+          </div>
+          <% }) %>
+            <% } %>
+
+    </div>
+    <div>
+      <p style="text-align: center;">Designed By Vraj Makwana</p>
+    </div>
+
+
+    <%- include("./partials/scripts") %>
+</body>
+
+</html>

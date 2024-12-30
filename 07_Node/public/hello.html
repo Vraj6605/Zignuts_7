@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Web App</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      transition: 1s;
+    }
+
+    body {
+      background-color: burlywood;
+    }
+
+    .active {
+      display: block;
+    }
+
+    .app {
+      width: 100%;
+      height: 80vh;
+      max-width: 500px;
+      margin: auto;
+      background-color: rgb(55, 94, 94);
+    }
+
+    .nav {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      padding: 10px;
+    }
+
+    .nav #btn-exit {
+      width: 100px;
+      height: 30px;
+      background-color: rgb(15, 13, 13);
+      color: white;
+      font-family: 'Courier New', Courier, monospace;
+      font-weight: bold;
+      font-size: 18px;
+      border-radius: 10px;
+      box-sizing: border-box;
+      box-shadow: 1px 1px white;
+
+    }
+
+    .nav #btn-exit:hover {
+      background-color: blue;
+      color: white;
+    }
+
+    .msg-con {
+      width: 100%;
+      height: 100%;
+      overflow-y: scroll;
+      background-color: #4e887a;
+    }
+
+    .msg {
+      padding: 0px 10px;
+      margin-bottom: 5px;
+      text-align: justify;
+    }
+
+    .align-right {
+      text-align: right;
+      position: relative;
+      right: 0px;
+      display: block;
+      border-radius: 20px;
+      border-top-right-radius: 0px;
+    }
+
+    .align-left {
+      position: relative;
+      text-align: left;
+      border-radius: 20px;
+      border-top-left-radius: 0px;
+    }
+
+    .input-msg-con {
+      width: 100%;
+      height: 50px;
+      background-color: black;
+      border: 2px solid black;
+      box-sizing: border-box;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+    }
+
+
+    #msg-input {
+      width: 80%;
+      height: 80%;
+      border-radius: 10px;
+      padding: 10px 10px;
+      box-sizing: border-box;
+    }
+
+    #msg-btn {
+      width: auto;
+      height: 80%;
+      padding: 0px 10px;
+      border-radius: 10px;
+      color: white;
+      font-size: 18px;
+      background-color: green;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="app">
+    <div class="nav">
+      <h1>Tell Me</h1>
+      <button id="btn-exit">Exit</button>
+    </div>
+
+    <!-- Message Container -->
+    <!-- <div class="msg-con"> -->
+
+    <div class="msg align-right">
+      <h3 style="color: burlywood;">You</h3>
+      <h1>Hello</h1>
+    </div>
+
+    <div class="msg align-left">
+      <h3 style="color: burlywood;">Other</h3>
+      <h1>Hello i am fine</h1>
+    </div>
+
+  </div>
+
+
+  <div class="input-msg-con">
+    <input type="text" id="msg-input" placeholder="Enter Your Message Here...">
+    <button type="submit" id="msg-btn">Send</button>
+  </div>
+
+  </div>
+  <script src="socket.io/socket.io.js"></script>
+  <script>
+
+    const socket = io();
+
+    const msg_con = document.querySelector(".msg-con");
+    const inputMsg = document.querySelector("#msg-input");
+    const sendMsg = document.querySelector("#msg-btn");
+    const exitBtn = document.querySelector("#btn-exit")
+
+    sendMsg.addEventListener("click", () => {
+      const msg = inputMsg.value;
+
+      socket.emit("msg", msg)
+      socket.on("msg", (msg) => {
+        const msgEle = document.createElement("div");
+        msgEle.setAttribute("class", "msg align-left");
+        msgEle.innerHTML =
+          `
+        <h3 style="color: burlywood;">Other</h3>
+        <h1>${msg}</h1>
+      `;
+
+        msg_con.appendChild(msgEle)
+
+      })
+
+      // Create Element 
+      const msgEle = document.createElement("div");
+      msgEle.setAttribute("class", "msg align-right");
+      msgEle.innerHTML =
+        `
+        <h3 style="color: burlywood;">You</h3>
+        <h1>${msg}</h1>
+      `;
+
+      msg_con.appendChild(msgEle)
+
+      inputMsg.value = ""
+
+    })
+  </script>
+
+</body>
+
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SignUp</title>
+  <style>
+    form {
+      width: 50%;
+      margin: auto;
+      text-align: center;
+    }
+
+    input,
+    button {
+      margin: auto;
+      font-size: 18px;
+      display: block;
+      border-radius: 10px;
+      padding: 5px 10px;
+      margin-top: 10px;
+    }
+
+    label {
+      font-size: 20px;
+      font-weight: bolder;
+    }
+
+    h1 {
+      color: rgb(22, 64, 64);
+      font-weight: bolder;
+      font-family: 'Courier New', Courier, monospace;
+    }
+  </style>
+</head>
+
+<body>
+
+  <form action="/admin/signup" method="post">
+    <h1>SignUp Page</h1>
+    <label>Name</label>
+    <input type="text" name="name" placeholder="Enter Your Name Here">
+    <br>
+    <label>Email</label>
+    <input type="email" name="email" placeholder="Enter Your Email Here">
+    <br>
+    <label>Password</label>
+    <input type="password" name="password" placeholder="Enter Your Password Here">
+    <br>
+    <button type="submit">SignUp</button>
+  </form>
+</body>
+
+</html>

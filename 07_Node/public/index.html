@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Socket Chat</title>
+  <link rel="stylesheet" href="index.css">
+</head>
+
+<body>
+  <div class="chat-container">
+    <header>Chat With Me</header>
+    <div id="messages" class="messages"></div>
+    <form id="chat-form">
+      <input id="message" type="text" placeholder="Type a message..." autocomplete="off" />
+      <button type="submit">Send</button>
+    </form>
+    <p style="text-align: center;">Designed by Vraj Makwana</p>
+  </div>
+  <script src="/socket.io/socket.io.js"></script>
+  <script>
+    const socket = io();
+
+    const form = document.getElementById('chat-form');
+    const input = document.getElementById('message');
+    const messages = document.getElementById('messages');
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const msg = input.value;
+      if (msg) {
+        socket.emit('chat message', msg); // Send message to the server
+        input.value = '';
+      }
+    });
+
+    socket.on('chat message', (msg) => {
+      const item = document.createElement('div');
+      item.textContent = msg;
+      messages.appendChild(item);
+      messages.scrollTop = messages.scrollHeight; // Auto-scroll
+    });
+  </script>
+</body>
+
+</html>
